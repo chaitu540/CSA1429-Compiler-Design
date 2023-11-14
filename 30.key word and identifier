@@ -1,0 +1,14 @@
+%{
+%}
+%%
+["if"|"else"|"main"|"int|"float"|"retuen"|for|]+ {printf("\n key word");}
+.+ {printf("\n identifier");}
+%%
+int yywrap(void){}
+int main()
+{
+printf("\n enter the identifier");
+yylex();
+printf("\n");
+return 0;
+}
