@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <ctype.h>
+
+char input[100];
+int pos = 0;
+
+void match(char token) {
+    if (input[pos] == token) {
+        pos++;
+    } else {
+        printf("Error: Unexpected token %c\n", input[pos]);
+        // Handle error (e.g., exit or error recovery)
+    }
+}
+
+void E();
+void T();
+void F();
+
+int main() {
+    printf("Enter an arithmetic expression: ");
+    scanf("%s", input);
+
+    E();  // Start parsing from the non-terminal E
+
+    if (input[pos] == '\0') {
+        printf("Parsing successful!\n");
+    } else {
+        printf("Error: Unexpected token %c\n", input[pos]);
+    }
+
+    return 0;
+}
+
+void E() {
+    T();
+    while (input[pos] == '+' || input[pos] == '-') {
+        match(input[pos]);
+        T();
+    }
+}
+
+void T() {
+    F();
+    while (input[pos] == '*' || input[pos] == '/') {
+        match(input[pos]);
+        F();
+    }
+}
+
+void F() {
+    if (isdigit(input[pos])) {
+        match(input[pos]);
+    } else if (input[pos] == '(') {
+        match('(');
+        E();
+        match(')');
+    } else {
+        printf("Error: Unexpected token %c\n", input[pos]);
+        // Handle error (e.g., exit or error recovery)
+    }
+}
