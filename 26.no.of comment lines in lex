@@ -1,0 +1,21 @@
+%{
+int comment_lines = 0;
+%}
+
+%%
+
+"#"(.)* {
+    comment_lines++;
+}
+
+"/*"(.|\n)*"*/" {
+    comment_lines++;
+}
+
+%%
+
+int main(int argc, char** argv) {
+    yylex();
+    printf("Number of comment lines: %d\n", comment_lines);
+    return 0;
+}
