@@ -1,0 +1,19 @@
+%{
+#include <stdio.h>
+int hi= 0;
+int ma = 0;
+%}
+
+%%
+#include {hi++;}
+#define  {ma++;}
+%%
+int yywrap(){}
+int main()
+{
+printf("Enter the C Program:");
+    yylex();
+    printf("Number of header: %d\n", hi);
+    printf("Number of macro: %d\n", ma);
+    return 0;
+}
